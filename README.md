@@ -30,3 +30,8 @@ Change owner of rbenv versions directory(default:/opt/rbenv/versions) to rbenv u
         "group_users": ["taro", "jiro" "saburo"]
       }
     }
+
+## TODO
+
+* include to rbenv-install-rubies
+  * because Dir.* method error exist

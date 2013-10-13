@@ -6,22 +6,17 @@
 include_recipe "yum::repoforge"
 include_recipe "incron::default"
 include_recipe "rbenv::default"
+include_recipe "rbenv-install-rubies"
 
 versions_dir = "#{node[:rbenv][:root]}/versions"
+versions = [node[:rbenv_install_rubies][:global_version]] + node[:rbenv_install_rubies][:other_versions]
 
 keep_owner_command = "chown -R #{node[:rbenv][:user]}:#{node[:rbenv][:group]} #{versions_dir}"
 keep_group_write_command = "chmod g+w -R #{versions_dir}"
 
-# get installed versions
-Dir.chdir(versions_dir)
-versions = []
-Dir.glob("*-p*") do |d|
-  versions.push d
-end
-
+# incron
 mask_for_gem = "IN_CREATE,IN_DELETE"
 
-# incron
 versions.each do |v|
   if v =~ /^2.0/
     watch_dir = "#{versions_dir}/#{v}/lib/ruby/gems/2.0.0/gems"
@@ -45,7 +40,7 @@ versions.each do |v|
   end
 end
 
-# initialize
+# initialize owner and permission
 execute "exec_keep_owner_command" do
   command keep_owner_command
 end
