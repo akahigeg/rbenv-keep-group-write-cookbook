@@ -1,6 +1,6 @@
-`WARNING`
+## WARNING
 
-This cookbook is useless because incron is not work well.
+This cookbook is useless because incron is not working stable.
 
 Use [rbenv-install-rubies-cookbook](https://github.com/akahigeg/rbenv-install-rubies-cookbook) instead of this.
 
